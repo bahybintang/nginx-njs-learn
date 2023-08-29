@@ -6,3 +6,6 @@ down:
 
 nginx-reload:
 	docker-compose -f docker-compose.local.yml exec nginx nginx -s reload
+
+build:
+	docker build -t bintangbahy/nginx-njs-learn:latest .

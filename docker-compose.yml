@@ -1,0 +1,9 @@
+version: "3"
+services:
+  nginx:
+    image: bintangbahy/nginx-njs-learn:latest
+    ports:
+      - "8080:80"
+    environment:
+      - COUPLE_PAGE=maya-enggar-2
+      - UPSTREAM_DOMAIN=https://zivisual.net
