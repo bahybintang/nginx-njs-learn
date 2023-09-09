@@ -6,4 +6,7 @@ services:
       - "8080:80"
     environment:
       - COUPLE_PAGE=maya-enggar-2
-      - UPSTREAM_DOMAIN=https://zivisual.net
+      - UPSTREAM_DOMAIN=zivisual.net
+      - UPSTREAM_ENABLE_SSL=true
+      - ENABLE_SSL=true
+      - DOMAIN=localhost:8080

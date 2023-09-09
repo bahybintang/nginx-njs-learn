@@ -12,4 +12,7 @@ services:
       - ./template-variables:/etc/nginx/templates/10-variables.conf.template:ro
     environment:
       - COUPLE_PAGE=maya-enggar-2
-      - UPSTREAM_DOMAIN=https://zivisual.net
+      - UPSTREAM_DOMAIN=zivisual.net
+      - UPSTREAM_ENABLE_SSL=true
+      - ENABLE_SSL=false
+      - DOMAIN=localhost:8080
