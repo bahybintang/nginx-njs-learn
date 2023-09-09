@@ -9,3 +9,6 @@ nginx-reload:
 
 build:
 	docker build -t bintangbahy/nginx-njs-learn:latest .
+
+generate:
+	python3 scripts/gen-id.py
