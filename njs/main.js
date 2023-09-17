@@ -1,14 +1,25 @@
-import storage from './storage.js';
+import storageTypes from './storage.js';
 
-function main(r) {
+var storage
+if (!process.env.ENABLE_WEBDIS || !process.env.WEBDIS_URL) {
+    storage = storageTypes.jsonStorage(process.env.JSON_STORAGE_PATH || "/etc/nginx/storage/invitees.json");
+}
+else {
+    storage = storageTypes.webdisStorage(process.env.WEBDIS_URL);
+}
+
+async function main(r) {
     const invitees_id = r.uri.split("/")[1];
-    const invitees = storage.invitees.find(invitees => invitees.id == invitees_id);
-
+    const invitees = await storage.findById(invitees_id);
     if (!invitees) {
-        return "/non-existing-path"
+        r.headersOut['X-new-uri'] = "/non-existing-path";
+        r.return(200);
+        return;
     }
 
-    return encodeURI(`/${process.env.COUPLE_PAGE}/?to=${invitees.name}`);
+    r.headersOut['X-new-uri'] = encodeURI(`/${process.env.COUPLE_PAGE}/?to=${invitees.name}`);
+    r.return(200);
+    return;
 }
 
 export default { main }

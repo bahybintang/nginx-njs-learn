@@ -16,3 +16,27 @@ services:
       - UPSTREAM_ENABLE_SSL=true
       - ENABLE_SSL=false
       - DOMAIN=localhost:8080
+      - ENABLE_WEBDIS=true
+      - WEBDIS_URL=http://webdis:7379
+  redis:
+    image: redis:6.2.5
+    ports:
+      - "6379"
+  webdis:
+    image: nicolas/webdis:0.1.22
+    ports:
+      - "7379:7379"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./webdis.json:/etc/webdis.prod.json
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=admin
